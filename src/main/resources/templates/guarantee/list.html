@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bank Guarantee List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Bank Guarantee List</h1>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Applicant</th>
+            <th>Beneficiary</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="guarantee : ${bankGuarantees}">
+            <td th:text="${guarantee.guaranteeId}"></td>
+            <td th:text="${guarantee.applicant}"></td>
+            <td th:text="${guarantee.beneficiary}"></td>
+            <td th:text="${guarantee.type}"></td>
+            <td th:text="${guarantee.status}"></td>
+            <td>
+                <a th:href="@{/guarantee/{id}(id=${guarantee.guaranteeId})}">View</a> |
+                <a th:href="@{/guarantee/{id}/edit(id=${guarantee.guaranteeId})}">Edit</a> |
+                <form th:action="@{/guarantee/{id}/delete(id=${guarantee.guaranteeId})}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <a th:href="@{/guarantee/request}">Request New Bank Guarantee</a>
+</body>
+</html>
