@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/layout :: head('Dashboard')">
+    <meta charset="UTF-8">
+    <title>Dashboard - TFMS</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav th:replace="fragments/layout :: navbar"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div th:replace="fragments/layout :: sidebar"></div>
+            </div>
+            
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div th:replace="fragments/layout :: messages"></div>
+                
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Dashboard
+                    </h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-file-export me-1"></i> Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-print me-1"></i> Print
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <i class="fas fa-calendar me-1"></i> This month
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Welcome message -->
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Welcome <strong sec:authentication="name">User</strong> to the Trade Finance Management System. You have access to all modules.
+                </div>
+                
+                <!-- Stats cards -->
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-file-contract fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="col ml-3">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Letters of Credit
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${lcCount}">0</div>
+                                        <div class="small text-muted">
+                                            <span th:text="${activeLcCount}">0</span> active
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2">
+                                <a th:href="@{/lc}" class="btn btn-sm btn-primary w-100">
+                                    <i class="fas fa-arrow-right me-1"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-shield-alt fa-2x text-success"></i>
+                                    </div>
+                                    <div class="col ml-3">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Bank Guarantees
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${bgCount}">0</div>
+                                        <div class="small text-muted">
+                                            <span th:text="${activeBgCount}">0</span> active
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2">
+                                <a th:href="@{/guarantee}" class="btn btn-sm btn-success w-100">
+                                    <i class="fas fa-arrow-right me-1"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-file-alt fa-2x text-info"></i>
+                                    </div>
+                                    <div class="col ml-3">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Trade Documents
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${documentCount}">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2">
+                                <a th:href="@{/document}" class="btn btn-sm btn-info w-100">
+                                    <i class="fas fa-arrow-right me-1"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-exclamation-triangle fa-2x text-warning"></i>
+                                    </div>
+                                    <div class="col ml-3">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Risk Assessments
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${riskCount}">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2">
+                                <a th:href="@{/risk}" class="btn btn-sm btn-warning w-100">
+                                    <i class="fas fa-arrow-right me-1"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-chart-bar me-1"></i> 
+                                    Letters of Credit Overview
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <p class="text-center text-muted py-5">
+                                        <i class="fas fa-chart-bar fa-3x mb-3 d-block"></i>
+                                        Chart visualization will be displayed here
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-success">
+                                    <i class="fas fa-chart-pie me-1"></i> 
+                                    Bank Guarantees by Type
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-pie">
+                                    <p class="text-center text-muted py-5">
+                                        <i class="fas fa-chart-pie fa-3x mb-3 d-block"></i>
+                                        Chart visualization will be displayed here
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Action Cards -->
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-bolt me-1"></i> 
+                                    Quick Actions
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/lc/create}" class="btn btn-outline-primary w-100 py-3">
+                                            <i class="fas fa-plus-circle fa-2x mb-2 d-block"></i>
+                                            Create Letter of Credit
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/guarantee/request}" class="btn btn-outline-success w-100 py-3">
+                                            <i class="fas fa-plus-circle fa-2x mb-2 d-block"></i>
+                                            Request Bank Guarantee
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/document/upload}" class="btn btn-outline-info w-100 py-3">
+                                            <i class="fas fa-upload fa-2x mb-2 d-block"></i>
+                                            Upload Trade Document
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/risk/create}" class="btn btn-outline-warning w-100 py-3">
+                                            <i class="fas fa-plus-circle fa-2x mb-2 d-block"></i>
+                                            Create Risk Assessment
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/compliance/create}" class="btn btn-outline-danger w-100 py-3">
+                                            <i class="fas fa-plus-circle fa-2x mb-2 d-block"></i>
+                                            Create Compliance Report
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a th:href="@{/risk/analyze}" class="btn btn-outline-secondary w-100 py-3">
+                                            <i class="fas fa-search fa-2x mb-2 d-block"></i>
+                                            Analyze Transaction Risk
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <footer th:replace="fragments/layout :: footer"></footer>
+    
+    <div th:replace="fragments/layout :: scripts"></div>
+</body>
+</html>

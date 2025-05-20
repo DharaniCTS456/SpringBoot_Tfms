@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('request')>
+    <title>Request Bank Guarantee</title>
+</head>
+<body>
+    <h1>Request a New Bank Guarantee</h1>
+
+    <form th:action="@{/guarantee/request}" th:object="${bankGuarantee}" method="post">
+        <p>
+            <label>Applicant: </label>
+            <input type="text" th:field="*{applicant}" required/>
+        </p>
+        <p>
+            <label>Beneficiary: </label>
+            <input type="text" th:field="*{beneficiary}" required/>
+        </p>
+        <p>
+            <label>Type: </label>
+            <select th:field="*{type}">
+                <option value="Performance Guarantee">Performance Guarantee</option>
+                <option value="Financial Guarantee">Financial Guarantee</option>
+            </select>
+        </p>
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <a th:href="@{/guarantee}">Back to List</a>
+</body>
+</html>

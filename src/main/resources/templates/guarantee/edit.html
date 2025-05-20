@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bank Guarantee</title>
+</head>
+<body>
+    <h1>Edit Bank Guarantee</h1>
+
+    <form th:action="@{/guarantee/{id}/edit(id=${bankGuarantee.guaranteeId})}" th:object="${bankGuarantee}" method="post">
+        <p>
+            <label>Applicant: </label>
+            <input type="text" th:field="*{applicant}" required/>
+        </p>
+        <p>
+            <label>Beneficiary: </label>
+            <input type="text" th:field="*{beneficiary}" required/>
+        </p>
+        <p>
+            <label>Type: </label>
+            <select th:field="*{type}">
+                <option value="Performance Guarantee">Performance Guarantee</option>
+                <option value="Financial Guarantee">Financial Guarantee</option>
+            </select>
+        </p>
+        <p>
+            <label>Status: </label>
+            <select th:field="*{status}">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Issued">Issued</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </p>
+        <button type="submit">Update</button>
+    </form>
+
+    <a th:href="@{/guarantee/{id}(id=${bankGuarantee.guaranteeId})}">Cancel</a>
+</body>
+</html>
